@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app color="#23277c">
+    <v-app-bar app class="elevation-0" color="#23277c">
       <v-app-bar-nav-icon
         class="white--text"
         v-on:click="showFunc"

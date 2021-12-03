@@ -53,11 +53,11 @@
           >
         </v-card>
       </div>
-      <div class="my-5 col-10">
-        <AppointmentsTable class="elevation-1">
+      <v-card class="my-5 col-10">
+        <AppointmentsTable class="elevation-0">
           <span slot="tableTitle">Today's Appointments</span>
         </AppointmentsTable>
-      </div>
+      </v-card>
   </div>
 </template>
 

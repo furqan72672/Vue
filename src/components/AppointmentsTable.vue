@@ -1,7 +1,8 @@
 <template>
-    <v-data-table :headers="header" :items="item" :loading="loading" >
-      <template v-slot:top>
-        <div class="d-flex flex-row">
+  <div>
+    <v-data-table :headers="header" :items="item" :loading="loading">
+      <template v-slot:top >
+        <div class="d-flex flex-row mt-5">
             <span
               class="font-weight-bold"
               style="font-size: 150%; text-align: center;"
@@ -29,6 +30,7 @@
         <v-btn icon v-if="del"><v-icon small color="red">mdi-delete</v-icon></v-btn>
       </template>
     </v-data-table>
+  </div>
 </template>
 
 <script>
