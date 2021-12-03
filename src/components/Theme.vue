@@ -16,16 +16,16 @@
             height="90%"
             width="1%"
             depressed
-            >{{ extractFirstOfString(profile.firstName) }}
+            >{{ extractFirstOfString(profile.first_name) }}
           </v-btn>
         </template>
 
         <v-card width="320px" height="250px">
           <div class="d-flex flex-column justify-center align-center mx-5">
             <v-avatar size="75px" color="rgb(245, 193, 135)" class="mt-5">{{
-              extractFirstOfString(profile.firstName)
+              extractFirstOfString(profile.first_name)
             }}</v-avatar>
-            <v-card-title>{{`${profile.firstName} ${profile.lastName}`}}</v-card-title>
+            <v-card-title>{{`${profile.first_name} ${profile.last_name}`}}</v-card-title>
             <v-card-subtitle>{{profile.username}}</v-card-subtitle>
             <v-divider></v-divider>
             <v-btn color="black" class="white--text align-self-end mb-5"
@@ -76,28 +76,8 @@ export default {
   data() {
     return {
       showDrawer: true,
-      profile:{
-          firstName:null,
-          lastName:null,
-          username:null,
-          // email:null,
-          phone:null,
-      }
+      profile:JSON.parse(localStorage.getItem('user')),
     };
-  },
-  beforeMount(){
-    this.axios.get("https://api.servicemywoodymail.com/auth/profile",{
-        headers:{
-            Authorization: 'Bearer '+localStorage.getItem('token')
-        }
-    }).then((res)=>{
-        this.profile.firstName=res.data.first_name;
-        this.profile.lastName=res.data.last_name;
-        this.profile.phone=res.data.phone;
-        // this.profile.email=res.data.email;
-        this.profile.username=res.data.username;
-        localStorage.setItem('profile',this.profile);
-    })
   },
   methods: {
     showFunc() {

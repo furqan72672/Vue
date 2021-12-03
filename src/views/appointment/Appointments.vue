@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import PendingTable from '../components/PendingTable.vue'
-import CompletedTable from '../components/CompletedTable.vue'
-import ApprovedTable from '../components/ApprovedTable.vue'
-import CancelledTable from '../components/CancelledTable.vue'
-import RejectedTable from '../components/RejectedTable.vue'
+import PendingTable from '../../components/PendingTable.vue'
+import CompletedTable from '../../components/CompletedTable.vue'
+import ApprovedTable from '../../components/ApprovedTable.vue'
+import CancelledTable from '../../components/CancelledTable.vue'
+import RejectedTable from '../../components/RejectedTable.vue'
 import Vue from 'vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
@@ -37,14 +37,6 @@ export default {
         ApprovedTable,
         CancelledTable,
         RejectedTable,
-    },
-    async beforeMount(){
-        this.appointments=await this.axios.get('https://api.servicemywoodymail.com/appointment/dashboard',{
-            headers:{
-                Authorization: 'Bearer '+localStorage.getItem('token')
-            }
-        });
-        // console.log(this.appointments)
     },
     data(){
         return{

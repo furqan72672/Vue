@@ -11,10 +11,8 @@
 <script>
 
 import AppointmentsTable from '../components/AppointmentsTable.vue'
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios,axios);
+import {TimeSlots} from '../services/timeSlots';
+import {timeFormatterArr} from '../utils/timeFormatter';
 
 export default {
     name:'TimeSlots',
@@ -28,20 +26,13 @@ export default {
                 {text:'To',value:'to'},
                 {text:'Actions',value:'actions'},
             ],
-            timeSlots:[]
+            timeSlots:[],
+            service:new TimeSlots()
         }
     },
-    beforeMount(){
-        this.axios.get('https://api.servicemywoodymail.com/time-slot',{
-            headers:{
-                Authorization:'Bearer '+localStorage.getItem('token')
-            }
-        }).then((res)=>{
-            if(res.status===200){
-                this.timeSlots=res.data;
-            }
-            console.log(this.timeSlots);
-        });
+    async beforeMount(){
+        this.timeSlots=await this.service.getAll();
+        this.timeSlots=timeFormatterArr(this.timeSlots);
     },
 }
 </script>

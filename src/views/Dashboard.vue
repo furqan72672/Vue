@@ -7,8 +7,8 @@
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.pending}}</v-card-title>
-          <v-card-title v-else class="white--text">offline</v-card-title>
+          <v-card-title class="white--text">{{dashboardData.pending}}</v-card-title>
+          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Pending Appointments</v-card-subtitle
           >
@@ -20,8 +20,8 @@
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.accepted}}</v-card-title>
-          <v-card-title v-else class="white--text">offline</v-card-title>
+          <v-card-title class="white--text">{{dashboardData.accepted}}</v-card-title>
+          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Approved Appointments</v-card-subtitle
           >
@@ -33,8 +33,8 @@
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.cancelled}}</v-card-title>
-          <v-card-title v-else class="white--text">offline</v-card-title>
+          <v-card-title class="white--text">{{dashboardData.cancelled}}</v-card-title>
+          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Cancelled Appointments</v-card-subtitle
           >
@@ -46,8 +46,8 @@
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.completed}}</v-card-title>
-          <v-card-title v-else class="white--text">offline</v-card-title>
+          <v-card-title class="white--text">{{dashboardData.completed}}</v-card-title>
+          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Completed Appointments</v-card-subtitle
           >
@@ -66,29 +66,19 @@
 <script>
 
 import AppointmentsTable from '../components/AppointmentsTable.vue'
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import {GetAppointments} from '../services/AppointmentsService'
 
-Vue.use(VueAxios,axios);
 
 export default {
   name: 'Dashboard',
   components:{
     AppointmentsTable,
   },
-  beforeMount(){
-    this.axios.get("https://api.servicemywoodymail.com/appointment/dashboard",{
-      headers:{
-        Authorization:'Bearer '+localStorage.getItem('token')
-      }
-    }).then((res)=>{
-      this.dashboardData=res.data;
-    });
-  },
+  
   data() {
     return {
       dashboardData:null,
+      service:new GetAppointments(),
       headers: [
         { text: "Client", value: "client" },
         { text: "Type", value: "type" },
@@ -106,6 +96,10 @@ export default {
         },
       ],
     };
+  },
+  async beforeMount(){
+    this.dashboardData=await this.service.getDashboard();
+    // console.log(this.dashboardData);
   },
 };
 </script>

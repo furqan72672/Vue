@@ -1,5 +1,4 @@
 <template>
-
     <v-data-table :headers="header" :items="item" :loading="loading">
       <template v-slot:top>
         <div class="d-flex flex-row">
@@ -22,18 +21,18 @@
           {{formatter(item.date)}}
         </v-chip>
       </template>
-      <template v-if="item" v-slot:item.actions="{ /*item*/ }">
+      <template v-if="item" v-slot:item.actions="{ item }">
         <v-btn icon v-if="approve"><v-icon small color="green">mdi-check-circle</v-icon></v-btn>
         <v-btn icon v-if="reject"><v-icon small color="red">mdi-close-circle</v-icon></v-btn>
         <v-btn icon v-if="reschedule"><v-icon small color="orange">mdi-clock</v-icon></v-btn>
-        <v-btn icon v-if="update"><v-icon small color="green">mdi-pencil</v-icon></v-btn>
+        <v-btn icon v-if="update" @click="updateBtn(item)"><v-icon small color="green">mdi-pencil</v-icon></v-btn>
         <v-btn icon v-if="del"><v-icon small color="red">mdi-delete</v-icon></v-btn>
       </template>
     </v-data-table>
 </template>
 
 <script>
-import { dateFormatter } from '../services/dateFormatter';
+import { dateFormatter } from '../utils/dateFormatter';
 export default {
     name:'AppointmentsTable',
     props:{
@@ -93,6 +92,10 @@ export default {
         else{
           return true;
         }
+      },
+      updateBtn(item){
+        this.$router.push(`appointment?id=${item._id}`)
+        // this.$router.push(`/appointments/${item._id}`)
       }
     }
     

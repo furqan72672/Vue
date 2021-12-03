@@ -8,69 +8,24 @@
 <script>
 
 import AppointmentsTable from './AppointmentsTable.vue'
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
+import {GetAppointments} from '../services/AppointmentsService'
+import {dataHandle} from '../utils/dataHandle'
 
-Vue.use(axios,VueAxios)
 
 export default {
-    name:'RejectedTable',
+    name:'ApprovedTable',
     components:{
         AppointmentsTable
     },
     data(){
         return{
-            headers:[
-                { text: "Client", value: "client" },
-                { text: "Type", value: "type" },
-                { text: "Service", value: "service" },
-                { text: "Date", value: "date" },
-                { text: "Reason", value: "reason"},
-                { text: "Actions", value: "actions" },
-            ],
-            data:[]
+            data:[],
+            service: new GetAppointments(),
         }
     },
-    beforeMount(){
-        this.axios.get('https://api.servicemywoodymail.com/appointment/populated/4',{
-            headers:{
-                Authorization:'Bearer '+localStorage.getItem('token')
-            }
-        }).then((res)=>{
-            this.data=res.data;
-            // console.log(`${res.data[0].person.first_name} ${res.data[0].person.last_name}`)
-            // this.data[0].type=res.data[0].type
-            for(let i=0; i<res.data.length; i++){
-                this.data[i].client=`${this.data[i].person.first_name} ${this.data[i].person.last_name}`
-                switch(res.data[i].type){
-                    case 0:
-                        this.data[i].type='Mobile Service';
-                        break;
-                    default:
-                        this.data[i].type='Drop Off';
-                        break;
-                }
-                switch(res.data[i].service){
-                    case 0:
-                        this.data[i].service='Battery Concern';
-                        break;
-                    case 1:
-                        this.data[i].service='Transmission Concern';
-                        break;
-                    case 2:
-                        this.data[i].service='Break System';
-                        break;
-                    case 3:
-                        this.data[i].service='Heating Issues';
-                        break;
-                    default:
-                        this.data[i].service='Other Issues';
-                        break;
-                }
-            }
-            console.log(this.data);
-        })
+    async beforeMount(){
+        this.data=dataHandle(await this.service.getAllPopulated(1));
     }
+
 }
 </script>

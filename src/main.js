@@ -1,40 +1,59 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import VueRouter from 'vue-router'
-import SignIn from './views/auth/SignIn'
-import Theme from './components/Theme'
-import Appointments from './views/Appointments'
-import Settings from './views/Settings'
-import TimeSlots from './views/TimeSlots'
-import Dashboard from './views/Dashboard'
+import Vue from "vue";
+import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
+// import axios from "axios";
+import router from "./router";
+
+Vue.config.productionTip = false;
 
 
 
+// Vue.prototype.$axios = axios;
 
+// axios.defaults.baseURL = "https://api.servicemywoodymail.com";
+// axios.defaults.baseURL='https://api.servicemywoodymail.com'
 
-Vue.config.productionTip = false
+// axios.interceptors.request.use(
+//   config => {
+//     console.log('interceptor')
+//     const token = localStorage.getItem("token");
+//     console.log(token)
+//     if (token) {
+//       config.headers.common["Authorization"] = 'bearer ' + token;
+//     }
+//     return config;
+//   },
+//   error => {
+//     console.log('interceptor error')
 
-Vue.use(VueRouter);
-const routes=[
-  {path:'/auth/sign-in', component:SignIn},
-  {path:'/', component:Theme,
-  children:[
-    {path:'/',component:Dashboard},
-    {path:'/appointments',component:Appointments},
-    {path:'/time-slots',component:TimeSlots},
-    {path:'/settings',component:Settings},
-  ]
-},
+//     return Promise.reject(error);
+//   }
+// );
 
-]
-
-const router=new VueRouter({
-  routes
-})
+// axios.interceptors.response.use(
+//   response => {
+//     console.log('response')
+//     if (response.status === 200 || response.status === 201) {
+//       return Promise.resolve(response);
+//     } else {
+//       return Promise.reject(response);
+//     }
+//   },
+//   error => {
+//     if (error.response.status) {
+//       switch (error.response.status) {
+//         case 401:
+//           localStorage.removeItem("token");
+//           // localStorage.removeItem('user');
+//           break;
+//       }
+//       return Promise.reject(error.response);
+//     }
+//   }
+// );
 
 new Vue({
-  router:router,
+  router,
   vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
