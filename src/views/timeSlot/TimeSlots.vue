@@ -10,9 +10,9 @@
 
 <script>
 
-import AppointmentsTable from '../components/AppointmentsTable.vue'
-import {TimeSlots} from '../services/timeSlots';
-import {timeFormatterArr} from '../utils/timeFormatter';
+import AppointmentsTable from '../../components/AppointmentsTable.vue'
+import {TimeSlots} from '../../services/timeSlots';
+import {timeFormatterArr} from '../../utils/timeFormatter';
 
 export default {
     name:'TimeSlots',

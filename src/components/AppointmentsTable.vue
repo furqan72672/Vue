@@ -1,5 +1,5 @@
 <template>
-    <v-data-table :headers="header" :items="item" :loading="loading">
+    <v-data-table :headers="header" :items="item" :loading="loading" >
       <template v-slot:top>
         <div class="d-flex flex-row">
             <span
@@ -94,8 +94,8 @@ export default {
         }
       },
       updateBtn(item){
-        this.$router.push(`appointment?id=${item._id}`)
-        // this.$router.push(`/appointments/${item._id}`)
+        if(item.time_slot) this.$router.push(`appointment?id=${item._id}`);
+        if(item.to) this.$router.push(`time-slot?id=${item._id}`);
       }
     }
     

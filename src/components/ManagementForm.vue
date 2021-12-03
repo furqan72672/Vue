@@ -8,7 +8,7 @@
             <v-spacer></v-spacer>
             <v-btn dense class="ml-1" v-if="rej" color="red">Reject</v-btn>
             <v-btn dense class="ml-1" v-if="app" color="green">Approve</v-btn>
-            <v-btn dense class="ml-1" v-if="enableSubmit" color="#23277c">Submit</v-btn>
+            <v-btn dense class="ml-1 white--text" v-if="enableSubmit" color="#23277c">Submit</v-btn>
             <v-btn dense class="ml-1" v-else disabled color="#23277c">Submit</v-btn>
         </div>
     </v-card>

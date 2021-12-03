@@ -5,6 +5,10 @@ export class TimeSlots{
 
 
     async getAll(){
-        return (await axiosHandler.get('https://api.servicemywoodymail.com/time-slot')).data
+        return (await axiosHandler.get('/time-slot')).data
+    }
+    
+    async getOne(id){
+        return (await axiosHandler.get(`/time-slot/${id}`)).data
     }
 }

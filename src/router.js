@@ -3,9 +3,10 @@ import SignIn from './views/auth/SignIn'
 import Theme from './components/Theme'
 import Appointments from './views/appointment/Appointments'
 import Settings from './views/Settings'
-import TimeSlots from './views/TimeSlots'
+import TimeSlots from './views/timeSlot/TimeSlots'
 import Dashboard from './views/Dashboard'
 import ManageAppointments from './views/appointment/ManageAppointments'
+import ManageTimeSlot from './views/timeSlot/ManageTimeSlot'
 import Vue from 'vue'
 
 
@@ -24,6 +25,7 @@ const routes=[
     {path:'/time-slots',name:'timeSlots',component:TimeSlots},
     {path:'/settings',name:'settngs',component:Settings},
     {path:'/appointment',name:'manageAppointments',component:ManageAppointments},
+    {path:'/time-slot',name:'manageTimeSlot',component:ManageTimeSlot},
   ]
 },
 
