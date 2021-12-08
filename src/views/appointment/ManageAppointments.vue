@@ -1,6 +1,11 @@
 <template>
-<div class=" d-flex justify-center align-center my-5">
-    <ManagementForm :rej="true" :app="true" :enableSubmit="false" class="col-5">
+<div>
+    <div v-if="!item" class="d-flex justify-center align-center my-10">
+        <v-progress-circular color="white" indeterminate></v-progress-circular>
+        <h2 class="grey--text ml-4">Loading...please wait</h2>
+    </div>
+<div class=" d-flex justify-center align-center my-5" v-if="item">
+    <ManagementForm :rej="rej" :app="app" :enableSubmit="false" class="col-5" @rejClicked="updateStatus(data._id,2)" @appClicked="updateStatus(data._id,1)">
         <span class="mx-auto" style="font-size:125%" slot="formTitle">{{item?"Update Appointment":"Create Appointment"}}</span>
         <v-form slot="form" class="col-11 mx-auto">
             <v-text-field outlined dense readonly label="Appointment Type" color="#23277c" v-model="item.type"></v-text-field>
@@ -35,8 +40,10 @@
                 <v-text-field outlined dense readonly label="Email" color="#23277c" v-model="item.person.username" class="mr-5"></v-text-field>
                 <v-text-field outlined dense readonly label="Phone #" color="#23277c" v-model="item.person.phone"></v-text-field>
             </div>
+            <v-snackbar timeout="2000" v-model="showSnack">Updated Successfully</v-snackbar>
         </v-form>
     </ManagementForm>
+</div>
 </div>
 </template>
 
@@ -56,20 +63,40 @@ export default {
     },
     data(){
         return{
+            data:null,
             service:new GetAppointments(),
             item:null,
             time:null,
             timeSlot:null,
             date:null,
+            newStatus:null,
+            showSnack:false,
+            rej:false,
+            app:false
+        }
+    },
+    methods:{
+        async updateStatus(id,status){
+            this.newStatus=await this.service.updateStatus(id,status)
+            if(this.newStatus===200){
+                this.showSnack=true;
+                this.$router.push('/appointments')
+            }
+            console.log(this.newStatus);
+
         }
     },
     async beforeMount(){
         if(this.$route.query.id){
-            this.item=await this.service.getOne(this.$route.query.id)
+            this.data= this.item= await this.service.getOne(this.$route.query.id)
             this.time=timeFormatter(this.item.time_slot)
             this.timeSlot=`${this.time.from} - ${this.time.to}`
             this.date=dateFormatter(this.item.date)
             this.item=dataHandleSingle(this.item)
+        }
+        if(this.data.status===0){
+            this.rej=true;
+            this.app=true;
         }
     },
 }

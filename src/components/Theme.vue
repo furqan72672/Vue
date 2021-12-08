@@ -28,7 +28,7 @@
             <v-card-title>{{`${profile.first_name} ${profile.last_name}`}}</v-card-title>
             <v-card-subtitle>{{profile.username}}</v-card-subtitle>
             <v-divider></v-divider>
-            <v-btn color="black" class="white--text align-self-end mb-5"
+            <v-btn color="black" class="white--text align-self-end mb-5" @click="logout"
               >Logout</v-btn
             >
           </div>
@@ -82,6 +82,11 @@ export default {
   methods: {
     showFunc() {
       this.showDrawer = !this.showDrawer;
+    },
+    logout(){
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      this.$router.push('/auth/sign-in');
     },
     extractFirstOfString(str){
       if(str)

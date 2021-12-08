@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import axiosHandler from './axios-interceptor';
 
 export class GetAppointments{
@@ -13,5 +12,8 @@ export class GetAppointments{
 
     async getOne(id){
         return (await axiosHandler.get(`/appointment/${id}`)).data;
+    }
+    async updateStatus(id, status){
+        return (await axiosHandler.patch(`/appointment/${status}/${id}`)).status
     }
 }

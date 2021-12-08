@@ -1,5 +1,5 @@
 <template>
-    <AppointmentsTable v-bind:item="data" v-bind:approve="true" v-bind:reschedule="true" v-bind:reject="true">
+    <AppointmentsTable v-bind:item="data" v-bind:approve="true" v-bind:reschedule="true" v-bind:reject="true" v-on:done="load" v-on:reload="load">
         <span slot="tableTitle">Pending Appointments</span>
     </AppointmentsTable>
 </template>
@@ -24,7 +24,12 @@ export default {
         }
     },
     async beforeMount(){
-        this.data=dataHandle(await this.service.getAllPopulated(1));
+        this.data=dataHandle(await this.service.getAllPopulated(0));
+    },
+    methods:{
+        async load(){
+            this.data=dataHandle(await this.service.getAllPopulated(0));
+        }
     }
 
 }

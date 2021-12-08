@@ -7,6 +7,7 @@ import TimeSlots from './views/timeSlot/TimeSlots'
 import Dashboard from './views/Dashboard'
 import ManageAppointments from './views/appointment/ManageAppointments'
 import ManageTimeSlot from './views/timeSlot/ManageTimeSlot'
+import PageNotFound from './views/NotFound/PageNotFound'
 import Vue from 'vue'
 
 
@@ -26,13 +27,30 @@ const routes=[
     {path:'/settings',name:'settngs',component:Settings},
     {path:'/appointment',name:'manageAppointments',component:ManageAppointments},
     {path:'/time-slot',name:'manageTimeSlot',component:ManageTimeSlot},
-  ]
-},
+    {path:'**',component:PageNotFound}
+    ]
+  },
+  {path:'**',component:PageNotFound}
 
 ]
 
 const router=new VueRouter({
+  mode:'history',
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  if(!localStorage.getItem('token')&&!to.path.includes('/auth')){
+    if(to.path!=='/auth/sign-in'){
+      next('auth/sign-in')
+    }
+    else{
+      next()
+    }
+  }
+  else{
+    next()
+  }
 })
 
 export default router;

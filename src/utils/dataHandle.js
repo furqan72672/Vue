@@ -1,5 +1,6 @@
-function dataHandle(data){
-    for(let i=0; i<data.length; i++){
+function dataHandle(itemData){
+    let data=itemData;
+    for(let i=0; i<itemData.length; i++){
         data[i].client=`${data[i].person.first_name} ${data[i].person.last_name}`
         switch(data[i].type){
             case 0:
@@ -30,7 +31,8 @@ function dataHandle(data){
     return data;
 }
 
-function dataHandleSingle(data){
+function dataHandleSingle(itemData){
+    let data=itemData;
     data.client=`${data.person.first_name} ${data.person.last_name}`
     switch(data.type){
         case 0:

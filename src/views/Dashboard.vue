@@ -3,12 +3,12 @@
   <div class="d-flex flex-column justify-center align-center">
       <div class="d-flex flex-row justify-center align-center">
         <v-card
-          color="#2196f3"
+          color="blue"
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title class="white--text">{{dashboardData.pending}}</v-card-title>
-          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
+          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.pending}}</v-card-title>
+          <v-card-title v-else class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Pending Appointments</v-card-subtitle
           >
@@ -16,12 +16,12 @@
       <!-- </div> -->
       <!-- <div> -->
         <v-card
-          color="#9c27b0"
+          color="purple"
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title class="white--text">{{dashboardData.accepted}}</v-card-title>
-          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
+          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.accepted}}</v-card-title>
+          <v-card-title v-else class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Approved Appointments</v-card-subtitle
           >
@@ -29,12 +29,12 @@
       <!-- </div> -->
       <!-- <div> -->
         <v-card
-          color="#4caf50"
+          color="green"
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title class="white--text">{{dashboardData.cancelled}}</v-card-title>
-          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
+          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.cancelled}}</v-card-title>
+          <v-card-title v-else class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Cancelled Appointments</v-card-subtitle
           >
@@ -42,12 +42,12 @@
       <!-- </div> -->
       <!-- <div> -->
         <v-card
-          color="#e91e63"
+          color="pink"
           height="150%"
           class="d-flex flex-column justify-center align-center col-4"
         >
-          <v-card-title class="white--text">{{dashboardData.completed}}</v-card-title>
-          <v-card-title v-if="!dashboardData" class="white--text">offline</v-card-title>
+          <v-card-title v-if="dashboardData" class="white--text">{{dashboardData.completed}}</v-card-title>
+          <v-card-title v-else class="white--text">offline</v-card-title>
           <v-card-subtitle class="white--text"
             >Completed Appointments</v-card-subtitle
           >

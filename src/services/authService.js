@@ -7,7 +7,9 @@ export class AuthService {
 
         // console.log(axiosHandler.defaults.baseURL)
         const token = (await axiosHandler.post('/auth/sign-in', signIn)).data
-        localStorage.setItem('token', token.access_token);
+        if(token.access_token){
+            localStorage.setItem('token', token.access_token);
+        }
     }
 
     async getProfile() {

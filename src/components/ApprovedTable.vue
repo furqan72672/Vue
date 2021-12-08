@@ -1,5 +1,5 @@
 <template>
-    <AppointmentsTable v-bind:item="data" v-bind:approve="true">
+    <AppointmentsTable v-bind:item="data" v-bind:complete="true" v-on:done="load">
         <span slot="tableTitle">Approved Appointments</span>
     </AppointmentsTable>
 </template>
@@ -19,12 +19,19 @@ export default {
     },
     data(){
         return{
+            rawData:[],
             data:[],
             service: new GetAppointments(),
         }
     },
     async beforeMount(){
-        this.data=dataHandle(await this.service.getAllPopulated(1));
+        this.rawData=await this.service.getAllPopulated(1)
+        this.data=dataHandle(this.rawData);
+    },
+    methods:{
+        async load(){
+            this.data=dataHandle(await this.service.getAllPopulated(1));
+        }
     }
 
 }

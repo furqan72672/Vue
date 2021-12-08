@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosHandler = axios.create({
-    baseURL: 'https://api.servicemywoodymail.com',
+    baseURL: 'http://46.101.81.185:9200',
     timeout: 10000,
     params: {} // do not remove this, its added to add params later in the config
 });

@@ -33,6 +33,7 @@
           outlined
           :rules="passwordRules"
         ></v-text-field>
+        <p v-if="showError" class="red--text">Username or Password is incorrect</p>
         <v-btn
           v-bind:disabled="!valid"
           block
@@ -54,6 +55,7 @@ export default {
   name: "SignIn",
   data() {
     return {
+      showError:false,
       service: new AuthService(),
       emailRules: [
         (v) => (v && v.length > 0) || "Email is required",
@@ -66,7 +68,7 @@ export default {
       ],
       valid: false,
       signIn: {
-        username: "admin@gmail.com",
+        username: "xyz@gmail.com",
         password: "12345678",
       },
       user: {},
@@ -80,17 +82,17 @@ export default {
       if (this.$refs.form.validate()) {
         this.valid = true;
         try {
-          this.service.signIn(this.signIn);
-          this.service.getProfile();
+          await this.service.signIn(this.signIn);
+          await this.service.getProfile();
         } catch (e) {
             console.log('error')
           console.log(e);
         }
-        const accessToken = localStorage.getItem("token");
-        // console.log('accessToken')
-        // console.log(accessToken);
-        if(accessToken){
+        if(localStorage.getItem("token")){
             this.$router.push('/');
+        }
+        else{
+          this.showError=true
         }
       }
     },

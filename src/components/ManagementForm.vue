@@ -6,10 +6,10 @@
         <slot name="form"></slot>
         <div class="d-flex mr-5">
             <v-spacer></v-spacer>
-            <v-btn dense class="ml-1" v-if="rej" color="red">Reject</v-btn>
-            <v-btn dense class="ml-1" v-if="app" color="green">Approve</v-btn>
-            <v-btn dense class="ml-1 white--text" v-if="enableSubmit" color="#23277c">Submit</v-btn>
-            <v-btn dense class="ml-1" v-else disabled color="#23277c">Submit</v-btn>
+            <v-btn dense class="ml-1" v-if="rej" color="red" v-on:click="rejClick">Reject</v-btn>
+            <v-btn dense class="ml-1" v-if="app" color="green" v-on:click="appClick">Approve</v-btn>
+            <v-btn dense class="ml-1 white--text" v-if="enableSubmit" color="#23277c" v-on:click="subClick">Submit</v-btn>
+            <v-btn dense class="ml-1" v-else disabled color="#23277c" >Submit</v-btn>
         </div>
     </v-card>
 </template>
@@ -30,6 +30,17 @@ export default {
         enableSubmit:{
             type:Boolean,
             default:true,
+        },
+    },
+    methods:{
+        rejClick(){
+            this.$emit('rejClicked')
+        },
+        appClick(){
+            this.$emit('appClicked')
+        },
+        subClick(){
+            this.$emit('subClicked')
         }
     }
 }
